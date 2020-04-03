@@ -63,6 +63,7 @@ set mouse=a
 set undofile
 
 nnoremap <esc> :noh<return><esc>
+nmap <silent> gd <Plug>(coc-definition)
 
 filetype plugin indent on
 syntax on
@@ -114,7 +115,7 @@ endf
 
 nnoremap <C-p> :call Fzf_dev()<CR>
 
-let g:suda_smart_edit = 1
+" let g:suda_smart_edit = 1
 
 let g:coc_global_extensions = [
   \'coc-json',

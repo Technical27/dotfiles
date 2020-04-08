@@ -63,7 +63,11 @@ set mouse=a
 set undofile
 
 nnoremap <esc> :noh<return><esc>
+
 nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 
 filetype plugin indent on
 syntax on

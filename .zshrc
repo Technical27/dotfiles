@@ -17,6 +17,7 @@ plugins=(git zsh-nvm zsh-autosuggestions zsh-syntax-highlighting)
 HIST_STAMPS="mm/dd/yyyy"
 
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!{.git,build,node_modules}"'
+export FZF_DEFAULT_OPTS="--color bg+:-1"
 
 source $ZSH/oh-my-zsh.sh
 

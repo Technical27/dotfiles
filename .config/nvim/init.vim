@@ -19,6 +19,7 @@ Plug 'qpkorr/vim-bufkill'
 Plug 'hzchirs/vim-material'
 Plug 'JamshedVesuna/vim-markdown-preview'
 Plug 'takac/vim-hardtime'
+Plug 'jiangmiao/auto-pairs'
 call plug#end()
 
 set hidden
@@ -62,7 +63,7 @@ set mouse=a
 
 set undofile
 
-nnoremap <esc> :noh<return><esc>
+nnoremap <silent> <esc> :let @/ = ""<return><esc>
 
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
@@ -84,6 +85,8 @@ let g:vim_markdown_preview_github = 1
 let g:vim_markdown_preview_hotkey = '<C-m>'
 let g:vim_markdown_preview_browser = 'Chromium'
 let g:vim_markdown_preview_use_xdg_open = 1
+
+let g:AutoPairsFlyMode = 1
 
 fun! Fzf_dev()
   let l:fzf_files_options =

@@ -1,0 +1,19 @@
+{
+  "coc.source.emoji.filetypes": ["gitcommit", "markdown"],
+  "coc.preferences.formatOnSaveFiletypes": ["javascript", "vue", "html", "css", "json", "rust", "cpp"],
+  "prettier.singleQuote": true,
+  "languageserver": {
+    "ccls": {
+      "command": "ccls",
+      "filetypes": ["c", "cpp", "cuda", "objc", "objcpp"],
+      "rootPatterns": [".ccls-root", "compile_commands.json"],
+      "initializationOptions": {
+         "cache": {
+           "directory": "/tmp/ccls-cache"
+         }
+       }
+    }
+  },
+  "signature.maxWindowHeight": 16,
+  "suggest.noselect": false
+}

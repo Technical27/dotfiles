@@ -1,4 +1,8 @@
 export ZSH="/home/aamaruvi/.oh-my-zsh"
+export EDITOR='nvim'
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!{.git,build,node_modules,target}"'
+export FZF_DEFAULT_OPTS="--color bg+:-1"
+export GPG_TTY=$(tty)
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
@@ -9,17 +13,14 @@ ulimit -n 2048
 alias pros=prosv5
 alias make='make -j8'
 
-export EDITOR='nvim'
-
 [[ -v TMUX ]] && alias clear="clear && tmux clear"
 plugins=(git zsh-nvm zsh-autosuggestions zsh-syntax-highlighting)
 
 HIST_STAMPS="mm/dd/yyyy"
 
-export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!{.git,build,node_modules}"'
-export FZF_DEFAULT_OPTS="--color bg+:-1"
+mkcd() {
+  mkdir $1 && cd $1
+}
 
 source $ZSH/oh-my-zsh.sh
-
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
-export GPG_TTY=$(tty)

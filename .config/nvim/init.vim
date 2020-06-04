@@ -9,11 +9,8 @@ Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-scripts/undotree.vim'
-Plug 'edkolev/tmuxline.vim'
-Plug 'edkolev/promptline.vim'
 Plug 'honza/vim-snippets'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'lambdalisue/suda.vim'
 Plug 'farmergreg/vim-lastplace'
 Plug 'qpkorr/vim-bufkill'
 Plug 'hzchirs/vim-material'
@@ -25,8 +22,8 @@ call plug#end()
 set hidden
 set nobackup
 set nowritebackup
-set cmdheight=1
-set updatetime=300
+set cmdheight=2
+set updatetime=100
 set shortmess+=c
 set signcolumn=yes
 
@@ -92,8 +89,15 @@ fun! Fzf_dev()
   let l:fzf_files_options =
     \'--preview "bat --theme="OneHalfDark" --style=numbers,changes --color always {2..-1} | head -'.&lines.'"'
 
+  fun! s:get_open_files()
+    let l:buffers = map(filter(copy(getbufinfo()), 'v:val.listed'), 'v:val.name')
+    let l:len = len(fnamemodify(".", ":p"))
+    return map(l:buffers, 'v:val[l:len:]')
+  endf
+
   fun! s:files()
-    let l:files = split(system($FZF_DEFAULT_COMMAND), '\n')
+    let l:buffers = s:get_open_files()
+    let l:files = filter(split(system($FZF_DEFAULT_COMMAND), '\n'), 'index(l:buffers, v:val) == -1')
     return s:prepend_icon(l:files)
   endf
 
@@ -125,8 +129,6 @@ endf
 
 nnoremap <C-p> :call Fzf_dev()<CR>
 
-" let g:suda_smart_edit = 1
-
 let g:coc_global_extensions = [
   \'coc-json',
   \'coc-css',
@@ -145,25 +147,10 @@ let g:coc_global_extensions = [
 
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#tab_nr_type = 1
-let g:airline#extensions#tmuxline#enabled = 0
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 
 let g:localvimrc_persistent = 1
-
-let g:tmuxline_preset = {
-  \"a": "#S",
-  \"c": "#(whoami)",
-  \"y": ["#{cpu_percentage} #{cpu_icon}", "#{battery_percentage} #{battery_icon}"],
-  \"z": "#H"
-  \}
-
-" stupid thing for tmux to work right with cursor
-" and to display colors correctly
-if exists('$TMUX')
-  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-endif
 
 let g:closetag_filenames = '*.html,*.tsx,*.jsx,*.vue'
 let g:closetag_filetypes = 'html,typescriptreact,javascriptreact,vue'
@@ -181,10 +168,6 @@ function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
-
-
-let g:coc_snippet_next = '<tab>'
-let g:coc_snippet_prev = '<S-tab>'
 
 " clear whitespace on save
 fun! TrimWhitespace ()

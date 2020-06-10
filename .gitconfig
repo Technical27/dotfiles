@@ -6,3 +6,5 @@
 	helper = /usr/bin/git-credential-libsecret
 [commit]
 	gpgsign = true
+[pull]
+	rebase = false

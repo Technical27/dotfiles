@@ -1,24 +1,4 @@
-call plug#begin()
-Plug 'morhetz/gruvbox'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'ryanoasis/vim-devicons'
-Plug 'embear/vim-localvimrc'
-Plug 'sheerun/vim-polyglot'
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
-Plug 'tpope/vim-fugitive'
-Plug 'vim-scripts/undotree.vim'
-Plug 'honza/vim-snippets'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'farmergreg/vim-lastplace'
-Plug 'qpkorr/vim-bufkill'
-Plug 'hzchirs/vim-material'
-Plug 'JamshedVesuna/vim-markdown-preview'
-Plug 'takac/vim-hardtime'
-Plug 'jiangmiao/auto-pairs'
-call plug#end()
-
+''
 set hidden
 set nobackup
 set nowritebackup
@@ -197,3 +177,5 @@ hi clear SignColumn
 hi! link CocErrorSign GruvboxRed
 hi! link CocWarningSign GruvboxOrange
 hi! link CocInfoSign GruvboxYellow
+''
+# vim: set ft=vim:

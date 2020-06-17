@@ -5,20 +5,24 @@
   programs.home-manager.enable = true;
 
   home.packages = with pkgs; [
-    libappindicator-gtk3
-    gnomeExtensions.appindicator
     gnomeExtensions.caffeine
-    gnomeExtensions.paperwm
+    gnomeExtensions.dash-to-panel
     gnome3.gnome-tweaks
-    pop-gtk-theme
-    pop-icon-theme
+    pop-shell
 
     ripgrep
     rustup
     nerdfonts
+    yadm
+
     discord
     razergenie
-    yadm
+    minecraft
+    openrgb
+    virt-manager
+    killall
+    nix-index
+    neofetch
   ];
 
   programs.neovim = {
@@ -41,20 +45,26 @@
     extraConfig = import ./nvim.nix;
   };
 
-  programs.fish.enable = true;
+  services.lorri.enable = true;
+  programs.direnv.enable = true;
+
   programs.firefox.enable = true;
   programs.fzf.enable = true;
   programs.bat.enable = true;
   programs.htop.enable = true;
-  programs.starship.enable = true;
+  programs.starship = {
+    enable = true;
+    settings = {
+      # annoying
+      nix_shell = { disabled = true; };
+      # very slow
+      haskell = { disabled = true; };
+    };
+  };
 
   programs.kitty = with import ./kitty.nix; {
     enable = true;
-    font = {
-      name = "JetBrains Mono Regular Nerd Font Complete Mono";
-    };
-    inherit keybindings;
-    inherit extraConfig;
+    inherit keybindings extraConfig;
   };
   programs.git = {
     enable = true;
@@ -66,6 +76,17 @@
     };
     extraConfig = {
       pull = { rebase = false; };
+    };
+  };
+  programs.fish = {
+    enable = true;
+    shellInit = ''
+      set EDITOR 'nvim'
+      set FZF_DEFAULT_COMMAND 'rg --files --hidden --follow --glob "!{.git,build,node_modules,target}"'
+      set FZF_DEFAULT_OPTS '--color bg+:-1'
+    '';
+    shellAliases = {
+      make = "make -j8";
     };
   };
 

@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
     owner = "pop-os";
     repo = "shell";
     rev = "master_focal";
-    sha256 = "0f1svpd8k8b7ggvgfsfwvsix9y9jjcfxw4plk9m781r9zp9q8ds5";
+    sha256 = "1ygqzmvh6fjl1yc9rxb9mmis7ywaxqfnx6hn3clhl4y3vv5f19gn";
   };
 
   nativeBuildInputs = [ nodePackages.typescript glib ];

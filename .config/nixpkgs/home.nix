@@ -23,6 +23,7 @@
     killall
     nix-index
     neofetch
+    steam
   ];
 
   programs.neovim = {
@@ -76,13 +77,15 @@
     };
     extraConfig = {
       pull = { rebase = false; };
+      credential = {
+        helper = "/home/aamaruvi/.local/bin/git-credential-libsecret";
+      };
     };
   };
   programs.fish = {
     enable = true;
     shellInit = ''
       set EDITOR 'nvim'
-      set FZF_DEFAULT_COMMAND 'rg --files --hidden --follow --glob "!{.git,build,node_modules,target}"'
       set FZF_DEFAULT_OPTS '--color bg+:-1'
     '';
     shellAliases = {

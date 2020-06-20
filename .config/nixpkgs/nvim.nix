@@ -66,8 +66,9 @@ let g:vim_markdown_preview_use_xdg_open = 1
 let g:AutoPairsFlyMode = 1
 
 fun! Fzf_dev()
-  let l:fzf_files_options =
-    \'--preview "bat --theme="OneHalfDark" --style=numbers,changes --color always {2..-1} | head -'.&lines.'"'
+  let s:fzf_files_options =
+        \'--color bg+:-1 --preview "bat --theme="OneHalfDark" --style=numbers,changes --color always {2..-1} | head -'.&lines.'"'
+  let s:fzf_command = 'rg --files --hidden --follow --glob "!{.git,build,node_modules,target}"'
 
   fun! s:get_open_files()
     let l:buffers = map(filter(copy(getbufinfo()), 'v:val.listed'), 'v:val.name')
@@ -77,7 +78,7 @@ fun! Fzf_dev()
 
   fun! s:files()
     let l:buffers = s:get_open_files()
-    let l:files = filter(split(system($FZF_DEFAULT_COMMAND), '\n'), 'index(l:buffers, v:val) == -1')
+    let l:files = filter(split(system(s:fzf_command), '\n'), 'index(l:buffers, v:val) == -1')
     return s:prepend_icon(l:files)
   endf
 
@@ -100,11 +101,11 @@ fun! Fzf_dev()
     execute 'silent e' l:file_path
   endf
 
-  call fzf#run({
-        \ 'source': <sid>files(),
-        \ 'sink':   function('s:edit_file'),
-        \ 'options': '-m ' . l:fzf_files_options,
-        \ 'down':    '40%' })
+ call fzf#run({
+       \ 'source': <sid>files(),
+       \ 'sink':   function('s:edit_file'),
+       \ 'options': '-m ' . s:fzf_files_options,
+       \ 'down':    '40%' })
 endf
 
 nnoremap <C-p> :call Fzf_dev()<CR>
@@ -118,11 +119,11 @@ let g:coc_global_extensions = [
   \'coc-syntax',
   \'coc-emoji',
   \'coc-git',
-  \'coc-vetur',
   \'coc-rust-analyzer',
   \'coc-prettier',
   \'coc-tsserver',
   \'coc-tabnine',
+  \'coc-eslint',
   \]
 
 let g:airline#extensions#tabline#enabled = 1

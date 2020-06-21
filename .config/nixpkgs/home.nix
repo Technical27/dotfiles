@@ -40,26 +40,30 @@
       vim-snippets
       vim-lastplace
       auto-pairs
+      coc-fzf
+      sensible
+      commentary
+      vim-lion
     ];
     withNodeJs = true;
     withPython3 = true;
     extraConfig = import ./nvim.nix;
   };
 
-  services.lorri.enable = true;
-  programs.direnv.enable = true;
-
+  services.lorri.enable   = true;
+  programs.direnv.enable  = true;
   programs.firefox.enable = true;
-  programs.fzf.enable = true;
-  programs.bat.enable = true;
-  programs.htop.enable = true;
+  programs.fzf.enable     = true;
+  programs.bat.enable     = true;
+  programs.htop.enable    = true;
+
   programs.starship = {
     enable = true;
     settings = {
       # annoying
       nix_shell = { disabled = true; };
       # very slow
-      haskell = { disabled = true; };
+      haskell   = { disabled = true; };
     };
   };
 
@@ -67,14 +71,17 @@
     enable = true;
     inherit keybindings extraConfig;
   };
+
   programs.git = {
-    enable = true;
-    userName = "Aamaruvi Yogamani";
+    enable    = true;
+    userName  = "Aamaruvi Yogamani";
     userEmail = "38222826+Technical27@users.noreply.github.com";
+
     signing = {
       signByDefault = true;
       key = "F930CFBFF5D7FDC3";
     };
+
     extraConfig = {
       pull = { rebase = false; };
       credential = {

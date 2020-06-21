@@ -16,9 +16,6 @@ set nofoldenable
 
 set lazyredraw
 set synmaxcol=180
-set re=2
-
-set autoread
 
 set tabstop=2
 set softtabstop=2
@@ -30,9 +27,6 @@ set clipboard+=unnamedplus
 
 set termguicolors
 
-set wrap
-set breakindent
-
 set number
 set showmatch
 
@@ -40,30 +34,32 @@ set mouse=a
 
 set undofile
 
-nnoremap <silent> <esc> :let @/ = ""<return><esc>
+set background=dark
 
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+let g:AutoPairsFlyMode    = 1
+let g:lion_squeeze_spaces = 1
+let g:gruvbox_italic      = 1
 
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+let g:coc_global_extensions = [
+  \'coc-json',
+  \'coc-css',
+  \'coc-html',
+  \'coc-lists',
+  \'coc-snippets',
+  \'coc-syntax',
+  \'coc-emoji',
+  \'coc-git',
+  \'coc-rust-analyzer',
+  \'coc-prettier',
+  \'coc-tsserver',
+  \'coc-tabnine',
+  \'coc-eslint',
+  \]
 
-filetype plugin indent on
-syntax on
-
-nnoremap T :bprev<CR>
-nnoremap Y :bnext<CR>
-
-nnoremap <C-u> :UndotreeToggle<CR>
-
-let g:vim_markdown_preview_github = 1
-let g:vim_markdown_preview_hotkey = '<C-m>'
-let g:vim_markdown_preview_browser = 'Chromium'
-let g:vim_markdown_preview_use_xdg_open = 1
-
-let g:AutoPairsFlyMode = 1
+let g:airline#extensions#tabline#enabled     = 1
+let g:airline#extensions#tabline#tab_nr_type = 1
+let g:airline_powerline_fonts                = 1
+let g:airline#extensions#tabline#formatter   = 'unique_tail_improved'
 
 fun! Fzf_dev()
   let s:fzf_files_options =
@@ -102,39 +98,31 @@ fun! Fzf_dev()
   endf
 
  call fzf#run({
-       \ 'source': <sid>files(),
-       \ 'sink':   function('s:edit_file'),
+       \ 'source' : <sid>files(),
+       \ 'sink'   : function('s:edit_file'),
        \ 'options': '-m ' . s:fzf_files_options,
-       \ 'down':    '40%' })
+       \ 'down'   : '40%' })
 endf
 
-nnoremap <C-p> :call Fzf_dev()<CR>
+fun! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endf
 
-let g:coc_global_extensions = [
-  \'coc-json',
-  \'coc-css',
-  \'coc-html',
-  \'coc-lists',
-  \'coc-snippets',
-  \'coc-syntax',
-  \'coc-emoji',
-  \'coc-git',
-  \'coc-rust-analyzer',
-  \'coc-prettier',
-  \'coc-tsserver',
-  \'coc-tabnine',
-  \'coc-eslint',
-  \]
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#tab_nr_type = 1
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 
-let g:localvimrc_persistent = 1
+nnoremap T :bprev<CR>
+nnoremap Y :bnext<CR>
 
-let g:closetag_filenames = '*.html,*.tsx,*.jsx,*.vue'
-let g:closetag_filetypes = 'html,typescriptreact,javascriptreact,vue'
+nnoremap <C-u> :UndotreeToggle<CR>
+
+nnoremap <silent> <C-p> :call Fzf_dev()<CR>
 
 inoremap <silent><expr> <c-space> coc#refresh()
 
@@ -145,10 +133,10 @@ inoremap <silent><expr> <TAB>
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+noremap <right> <C-w>l
+noremap <left>  <C-w>h
+noremap <down>  <C-w>j
+noremap <up>    <C-w>k
 
 " clear whitespace on save
 fun! TrimWhitespace ()
@@ -165,18 +153,13 @@ augroup RemoveHighlight
   autocmd BufLeave,BufWinLeave * nohlsearch
 augroup end
 
-noremap <right> <C-w>l
-noremap <left> <C-w>h
-noremap <down> <C-w>j
-noremap <up> <C-w>k
-
-set background=dark
-let g:gruvbox_italic=1
 colorscheme gruvbox
 
 hi clear SignColumn
-hi! link CocErrorSign GruvboxRed
+
+hi! link CocErrorSign   GruvboxRed
 hi! link CocWarningSign GruvboxOrange
-hi! link CocInfoSign GruvboxYellow
+hi! link CocInfoSign    GruvboxYellow
+
 ''
 # vim: set ft=vim:

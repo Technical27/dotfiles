@@ -1,0 +1,13 @@
+[user]
+	name = Aamaruvi Yogamani
+	email = 38222826+Technical27@users.noreply.github.com
+	signingKey = F930CFBFF5D7FDC3
+
+[commit]
+	gpgsign = true
+
+[pull]
+	rebase = true
+
+[credential]
+	helper = /usr/bin/git-credential-libsecret

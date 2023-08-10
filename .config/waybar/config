@@ -1,0 +1,83 @@
+{
+        "layer": "top",
+        "position": "top",
+        "height": 30,
+        "modules-left": [ "sway/workspaces", "sway/window", "sway/mode" ],
+        "modules-right": [ "idle_inhibitor", "network", "wireplumber", "backlight", "cpu", "memory", "battery", "clock", "tray" ],
+        "sway/workspaces": {
+          "disable-scroll": true
+        },
+        "sway/mode": {
+          "format": "<span style=\"italic\">{}</span>"
+        },
+        "tray": {
+          "spacing": 10
+        },
+        "idle_inhibitor": {
+          "format": "{icon}",
+          "format-icons": {
+            "activated": "",
+            "deactivated": ""
+          }
+        },
+        "clock": {
+          "format": "{:%I:%M %p}",
+          //<big>{:%Y %B}</big>\n
+          "tooltip-format": "<tt><small>{calendar}</small></tt>",
+          "format-alt": "{:%Y-%m-%d}"
+        },
+        "backlight": {
+          "format": "{percent}% {icon}",
+          "format-icons": [ "", "" ]
+        },
+        "battery": {
+          "interval": 5,
+          "states": {
+            "warning": 25,
+            "critical": 10
+          },
+          "format": "{capacity}% {icon}",
+          "format-charging": "{capacity}% ",
+          "format-plugged": "{capacity}% ",
+          "format-alt": "{time}",
+          "tooltip-format": "{power:>3.2f}W",
+          "format-icons": [ "", "", "", "", "" ]
+        },
+        "network": {
+          "format-wifi": "{essid} ({signalStrength}%) ",
+          "format-ethernet": "{ifname}: {ipaddr} ",
+          "format-linked": "{ifname} (No IP) ",
+          "format-disconnected": "Disconnected ⚠",
+          "tooltip-format-ethernet": "{ipaddr}",
+          "tooltip-format-wifi": "{ipaddr} {signaldBm}dBm",
+          "interface": "wlan0",
+          "on-click": "iwgtk",
+          "interval": 10
+        },
+        "cpu": {
+          "interval": 3,
+          "format": "{usage}% "
+        },
+        "memory": {
+          "interval": 3,
+          "format": "{}% "
+        },
+        "wireplumber": {
+          "scroll-step": 0,
+          "format": "{volume}% {icon}",
+          "format-bluetooth": "{volume}% {icon}",
+          "format-icons": [ "", "", "" ],
+            // "headphone": "",
+            // "hands-free": "",
+            // "headset": "",
+            // "phone": "",
+            // "portable": "",
+            // "car": "",
+          "on-click": "pavucontrol"
+        }
+//         "custom/vpn": {
+//           return-type: "json",
+//           interval: 10,
+//           exec: "${cpkgs.wgvpn}/bin/wgvpn bar"
+//         }
+}

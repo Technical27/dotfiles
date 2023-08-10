@@ -1,0 +1,11 @@
+profile main {
+  output eDP-1 enable mode 2256x1504 scale 1.4
+}
+profile monitor-hdmi {
+  output eDP-1 disable
+  output "Dell Inc. Dell S2716DG JCVN089S0K9Q" enable mode 2560x1440@60
+}
+profile monitor-dp {
+  output eDP-1 disable
+  output "Dell Inc. Dell S2716DG #ASPkS9dwX3zd" enable mode 2560x1440
+}
